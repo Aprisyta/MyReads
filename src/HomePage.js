@@ -15,10 +15,11 @@ class HomePage extends Component{
     })
   }
 
-  // reloadPageAfterChangeOfShelf = () => {
-  //   console.log("Hi HomePage");
-  //   this.forceUpdate()
-  // }
+  componentDidUpdate(){
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
+  }
 
   bookArrayForShelf = (shelfID) => {
     const bookArray = this.state.books.filter((book) => book.shelf === shelfID)

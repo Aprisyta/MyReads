@@ -9,11 +9,8 @@ class BookShelf extends Component {
     shelfChange: PropTypes.func.isRequired
   }
 
-  // callShelfChange = () => {
-  //
-  // }
-
   render(){
+    console.log("Within render");
     return(
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
