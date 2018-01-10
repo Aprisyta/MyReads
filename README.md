@@ -1,1 +1,1 @@
-#MyReads app
+MyReads app

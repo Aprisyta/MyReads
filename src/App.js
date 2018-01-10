@@ -6,14 +6,24 @@ import SearchPage from './SearchPage'
 import HomePage from './HomePage'
 
 class BooksApp extends Component{
+
+  state = {
+    helper: false
+  }
+
+  reloadPageAfterChangeOfShelf = () => {
+    console.log("Hi App");
+    this.state === false ? this.setState({helper: true}) : this.setState({helper: false})
+  }
+
   render(){
     return(
       <div>
         <Route exact path="/" render={() => (
-          <HomePage />
+          <HomePage shelfChange={this.reloadPageAfterChangeOfShelf}/>
         )} />
         <Route path="/search_books" render={() => (
-          <SearchPage />
+          <SearchPage shelfChange={this.reloadPageAfterChangeOfShelf}/>
         )} />
       </div>
     )
