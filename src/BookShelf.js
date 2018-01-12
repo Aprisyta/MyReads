@@ -10,7 +10,7 @@ class BookShelf extends Component {
   }
 
   render(){
-    console.log("Within render");
+    // console.log("Within render");
     return(
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>

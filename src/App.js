@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import { Route } from 'react-router-dom'
 import SearchPage from './SearchPage'
@@ -7,19 +6,14 @@ import HomePage from './HomePage'
 
 class BooksApp extends Component{
 
-  reloadPageAfterChangeOfShelf = () => {
-    // this.state === false ? this.setState({helper: true}) : this.setState({helper: false})
-    this.forceUpdate();
-  }
-
   render(){
     return(
       <div>
         <Route exact path="/" render={() => (
-          <HomePage shelfChange={this.reloadPageAfterChangeOfShelf}/>
+          <HomePage />
         )} />
         <Route path="/search_books" render={() => (
-          <SearchPage shelfChange={this.reloadPageAfterChangeOfShelf}/>
+          <SearchPage />
         )} />
       </div>
     )

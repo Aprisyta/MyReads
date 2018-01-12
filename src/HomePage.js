@@ -15,15 +15,16 @@ class HomePage extends Component{
     })
   }
 
-  componentDidUpdate(){
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-  }
-
   bookArrayForShelf = (shelfID) => {
     const bookArray = this.state.books.filter((book) => book.shelf === shelfID)
     return bookArray
+  }
+
+  reloadPageAfterChangeOfShelf = () => {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
+    this.forceUpdate();
   }
 
   render(){
@@ -41,7 +42,7 @@ class HomePage extends Component{
         faceValue: "Read"
       }
     ]
-    console.log(this.state.books);
+    // console.log(this.state.books);
     return(
       <div className="list-books">
         <div className="list-books-title">
@@ -53,7 +54,7 @@ class HomePage extends Component{
               <BookShelf
                 shelfTitle={shelf.faceValue}
                 bookArray={this.bookArrayForShelf(shelf.id)}
-                shelfChange={this.props.shelfChange} />
+                shelfChange={this.reloadPageAfterChangeOfShelf} />
             </li>
           ))
         }

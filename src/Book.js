@@ -8,15 +8,12 @@ class Book extends Component{
   }
 
   handleChange = (newShelf) => {
-    console.log("Hi Book");
+    this.setState({ shelf: this.props.bookObj.shelf })
     BooksAPI.update(this.props.bookObj, newShelf).then(() => this.props.shelfChange())
-
-    // this.forceUpdate()
   }
 
   render(){
     const {title, authors, imageLinks} = this.props.bookObj
-    console.log(this.state.shelf);
     const options = [
       {
         id: "currentlyReading",
@@ -43,17 +40,17 @@ class Book extends Component{
             <select onChange={(event) => this.handleChange(event.target.value)} value={this.state.shelf}>
               <option value="none" disabled>Move to...</option>
               {
-                options.map((opt) =>
-                // (<option value="`${opt.id}`" selected={opt.id === this.state.shelf}>{opt.faceValue}</option>)
-                {
-                  if(this.state.shelf === opt.id){
+                options.map((opt) => {
+                  if(typeof (this.state.shelf) === 'undefined' && (opt.id === "none")){
+                    return <option selected value={opt.id}>{opt.faceValue}</option>
+                  }
+                  else if(typeof (this.state.shelf) !== 'undefined' && this.state.shelf === opt.id){
                     return <option selected value={opt.id}>{opt.faceValue}</option>
                   }
                   else{
                     return <option value={opt.id}>{opt.faceValue}</option>
                   }
-                }
-              )
+                })
               }
             </select>
           </div>
@@ -61,6 +58,7 @@ class Book extends Component{
         <div className="book-title">{title}</div>
         <div className="book-authors">
           {
+            (typeof authors !== "undefined") &&
             authors.map((author) => (
               <div>{author}</div>
             ))
