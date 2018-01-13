@@ -41,6 +41,7 @@ class Book extends Component{
               <option value="none" disabled>Move to...</option>
               {
                 options.map((opt) => {
+                  console.log(this.state.shelf, this.props.bookObj);
                   if(typeof (this.state.shelf) === 'undefined' && (opt.id === "none")){
                     return <option selected value={opt.id}>{opt.faceValue}</option>
                   }

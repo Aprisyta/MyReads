@@ -49,16 +49,6 @@ class SearchPage extends Component{
           </div>
         </div>
         <div className="search-books-results">
-          // <div className="books-grid">
-          // {
-          //   (this.state.books.length > 0) ? (
-          //     <div>Showing {this.state.books.length} books for search '{this.state.query}'</div>
-          //   ) : (
-          //     <div>No books correspond to this search! </div>
-          //   )
-          // }
-          // </div>
-
           <ol className="books-grid">
           {
             this.state.books.map((book) => (
