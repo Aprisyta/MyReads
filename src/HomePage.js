@@ -9,10 +9,13 @@ class HomePage extends Component{
     books: []
   }
 
-  componentDidMount(){
+  getAllBooksRequest = () => {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
+  }
+  componentDidMount(){
+    this.getAllBooksRequest()
   }
 
   bookArrayForShelf = (shelfID) => {
@@ -21,10 +24,8 @@ class HomePage extends Component{
   }
 
   reloadPageAfterChangeOfShelf = () => {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-    this.forceUpdate();
+    this.getAllBooksRequest()
+    // this.forceUpdate()
   }
 
   render(){
@@ -42,7 +43,7 @@ class HomePage extends Component{
         faceValue: "Read"
       }
     ]
-    // console.log(this.state.books);
+
     return(
       <div className="list-books">
         <div className="list-books-title">

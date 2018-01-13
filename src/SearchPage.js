@@ -17,7 +17,7 @@ class SearchPage extends Component{
 
   searchBooks = () => {
     BooksAPI.search(this.state.query).then((books) => {
-      (typeof books !== "undefined") && this.setState({ books })
+      (!books.error) ? this.setState({ books }): this.setState({ books: [] })
     })
   }
 
@@ -25,8 +25,17 @@ class SearchPage extends Component{
     this.searchBooks()
   }
 
+  onBackSpaceKeyPress = (event) => {
+    let newQuery
+    if(event.keyCode === 8){
+      newQuery = this.state.query.substr(0, this.state.query.length)
+      this.setState({ query: newQuery})
+      this.searchBooks()
+    }
+  }
+
   render(){
-    // console.log(this.state.books)
+
     return(
       <div className="search-books">
         <div className="search-books-bar">
@@ -35,10 +44,21 @@ class SearchPage extends Component{
             <input type="text"
               placeholder="Search by title or author"
               value={this.state.query}
-              onChange={(event) => this.inputDone(event.target.value)}/>
+              onChange={(event) => this.inputDone(event.target.value)}
+              onKeyDown={this.onBackSpaceKeyPress} />
           </div>
         </div>
         <div className="search-books-results">
+          // <div className="books-grid">
+          // {
+          //   (this.state.books.length > 0) ? (
+          //     <div>Showing {this.state.books.length} books for search '{this.state.query}'</div>
+          //   ) : (
+          //     <div>No books correspond to this search! </div>
+          //   )
+          // }
+          // </div>
+
           <ol className="books-grid">
           {
             this.state.books.map((book) => (
@@ -55,11 +75,3 @@ class SearchPage extends Component{
 }
 
 export default SearchPage
-
-/*
-  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-  You can find these search terms here:
-  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-  However, remember that the BooksAPI.search method DOES search by title or author. So, don"t worry if
-  you don"t find a specific author or title. Every search is limited by search terms.
-*/
