@@ -2,6 +2,7 @@ import React, { Component , ReactDOM } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
+import {DebounceInput} from 'react-debounce-input'
 
 class SearchPage extends Component{
 
@@ -11,12 +12,12 @@ class SearchPage extends Component{
   }
 
   inputDone = (query) => {
-    this.setState({ query: query.trim() })
+    this.setState({ query })
     this.searchBooks()
   }
 
   searchBooks = () => {
-    BooksAPI.search(this.state.query).then((books) => {
+    BooksAPI.search(this.state.query === '' ? 'z' : this.state.query).then((books) => {
       (!books.error) ? this.setState({ books }): this.setState({ books: [] })
     })
   }
@@ -35,15 +36,16 @@ class SearchPage extends Component{
   }
 
   render(){
-
+    console.log(this.state.query);
     return(
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
-            <input type="text"
+            <DebounceInput type="text"
               placeholder="Search by title or author"
               value={this.state.query}
+              debounceTimeout={300}
               onChange={(event) => this.inputDone(event.target.value)}
               onKeyDown={this.onBackSpaceKeyPress} />
           </div>

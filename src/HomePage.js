@@ -60,7 +60,7 @@ class HomePage extends Component{
           ))
         }
         <div className="open-search">
-          <Link to='/search_books'>Add a book</Link>
+          <Link to='/search'>Add a book</Link>
         </div>
       </div>
     )

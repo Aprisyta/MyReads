@@ -4,12 +4,14 @@ import * as BooksAPI from './BooksAPI'
 class Book extends Component{
 
   state = {
+    book: this.props.bookObj,
     shelf: this.props.bookObj.shelf
   }
 
   handleChange = (newShelf) => {
-    this.setState({ shelf: this.props.bookObj.shelf })
-    BooksAPI.update(this.props.bookObj, newShelf).then(() => this.props.shelfChange())
+    const book = BooksAPI.get(this.props.bookObj.id).then((book) => this.setState({ book: book, shelf:newShelf }))
+    console.log(this.state.book, this.state.shelf);
+    BooksAPI.update(this.state.book, this.state.shelf).then(() => this.props.shelfChange())
   }
 
   render(){
@@ -41,7 +43,6 @@ class Book extends Component{
               <option value="none" disabled>Move to...</option>
               {
                 options.map((opt) => {
-                  console.log(this.state.shelf, this.props.bookObj);
                   if(typeof (this.state.shelf) === 'undefined' && (opt.id === "none")){
                     return <option selected value={opt.id}>{opt.faceValue}</option>
                   }

@@ -2,9 +2,11 @@
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "^15.5.4",
+    "react-debounce-input": "^3.1.0",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.2.2",
-    "react-styling": "^1.6.4"
+    "react-styling": "^1.6.4",
+    "react-throttle": "^0.3.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
