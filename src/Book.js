@@ -4,14 +4,20 @@ import * as BooksAPI from './BooksAPI'
 class Book extends Component{
 
   state = {
-    book: this.props.bookObj,
-    shelf: this.props.bookObj.shelf
+    shelf: ""
+  }
+
+  componentDidMount(){
+    BooksAPI.get(this.props.bookObj.id).then((book) => {
+      this.setState({ shelf: book.shelf })
+    })
   }
 
   handleChange = (newShelf) => {
-    const book = BooksAPI.get(this.props.bookObj.id).then((book) => this.setState({ book: book, shelf:newShelf }))
-    console.log(this.state.book, this.state.shelf);
-    BooksAPI.update(this.state.book, this.state.shelf).then(() => this.props.shelfChange())
+    this.setState({ shelf: newShelf })
+    BooksAPI.update(this.props.bookObj,newShelf).then(() =>
+      this.props.shelfChange()
+    )
   }
 
   render(){
@@ -40,13 +46,10 @@ class Book extends Component{
           <div className="book-cover" style={imageLinks ? { backgroundImage: `url(${imageLinks.thumbnail})` }:{}}></div>
           <div className="book-shelf-changer">
             <select onChange={(event) => this.handleChange(event.target.value)} value={this.state.shelf}>
-              <option value="none" disabled>Move to...</option>
+              <option value="MoveTo" disabled>Move to...</option>
               {
                 options.map((opt) => {
-                  if(typeof (this.state.shelf) === 'undefined' && (opt.id === "none")){
-                    return <option selected value={opt.id}>{opt.faceValue}</option>
-                  }
-                  else if(typeof (this.state.shelf) !== 'undefined' && this.state.shelf === opt.id){
+                  if(this.state.shelf === opt.id){
                     return <option selected value={opt.id}>{opt.faceValue}</option>
                   }
                   else{

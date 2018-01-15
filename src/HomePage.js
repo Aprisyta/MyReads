@@ -14,6 +14,7 @@ class HomePage extends Component{
       this.setState({ books })
     })
   }
+
   componentDidMount(){
     this.getAllBooksRequest()
   }

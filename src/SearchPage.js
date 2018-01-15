@@ -1,8 +1,8 @@
-import React, { Component , ReactDOM } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
-import {DebounceInput} from 'react-debounce-input'
+import { DebounceInput } from 'react-debounce-input'
 
 class SearchPage extends Component{
 
@@ -17,9 +17,11 @@ class SearchPage extends Component{
   }
 
   searchBooks = () => {
+
     BooksAPI.search(this.state.query === '' ? 'z' : this.state.query).then((books) => {
       (!books.error) ? this.setState({ books }): this.setState({ books: [] })
     })
+
   }
 
   reloadPageAfterChangeOfShelf = () => {
@@ -36,7 +38,6 @@ class SearchPage extends Component{
   }
 
   render(){
-    console.log(this.state.query);
     return(
       <div className="search-books">
         <div className="search-books-bar">
