@@ -40,10 +40,11 @@ class Book extends Component{
         faceValue: "None"
       }
     ]
+    const imageURL = imageLinks.thumbnail ? imageLinks.thumbnail : "http://via.placeholder.com/123x98"
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={imageLinks ? { backgroundImage: `url(${imageLinks.thumbnail})` }:{}}></div>
+          <div className="book-cover" style={{ backgroundImage: `url(${imageURL})` }}></div>
           <div className="book-shelf-changer">
             <select onChange={(event) => this.handleChange(event.target.value)} value={this.state.shelf}>
               <option value="MoveTo" disabled>Move to...</option>

@@ -17,11 +17,9 @@ class SearchPage extends Component{
   }
 
   searchBooks = () => {
-
     BooksAPI.search(this.state.query === '' ? 'z' : this.state.query).then((books) => {
       (!books.error) ? this.setState({ books }): this.setState({ books: [] })
     })
-
   }
 
   reloadPageAfterChangeOfShelf = () => {
